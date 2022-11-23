@@ -1,8 +1,7 @@
 # Student Resourcing API  
 
 **Description:**
-My first Spring Project from a year ago. A spring app that has basic crud functionality with data store in a local SQL database.
-- ensuring each API request returns the correct Response Status
+My first Spring Project from a year ago. A spring app that has basic crud functionality. Originally used to learn AWS Beanstalk deployment as well, but data is now stored in the local instance of SQL database instead of AWS RDS. 
 
 **Setup:**
 - clone repo
