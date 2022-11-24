@@ -22,7 +22,7 @@ https://github.com/freddydude02/Student-Resourcing-Front-End-App
 - During initialisation, I added lombok, but havent used it.
 - add testing so test my application for edgecases and for correct responses
 
-**Challenges:**
+**Challenges:**<br>
 As it was my first spring I was difficult keeping track of and learning each of the entity related classes that were required for running the API's.
 - Spring structure - entity, dto, repository, service & controller
 - familiarising with the appropriate response entities for each request(utilising optional<> to avoid calling methods on null values)
