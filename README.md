@@ -12,11 +12,11 @@ https://github.com/freddydude02/Student-Resourcing-Front-End-App
 - run code
 
 **Postman Endpoints:**
-Get - /students - get all students
-Get - /students/{id} - get specific student
-Post - /students/{id} - create new student
-Patch - /students/{id} - update student details
-Delete - /students - get all students
+Get - /students - get all students</br>
+Get - /students/{id} - get specific student</br>
+Post - /students/{id} - create new student</br>
+Patch - /students/{id} - update student details</br>
+Delete - /students - get all students</br>
 
 **What I'd do differently next time:**
 - During initialisation, I added lombok, but havent used it.
