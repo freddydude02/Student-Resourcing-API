@@ -2,6 +2,7 @@ package com.nology.java.draft;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "http://frontendreact.s3-website-ap-southeast-2.amazonaws.com/")
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping(value = "/students")
 public class StudentController {
@@ -41,11 +42,16 @@ public class StudentController {
 	}
 	
 	@GetMapping("/{id}")
-	public Student get(@PathVariable Long id){
-		return studentService.get(id);
+	public ResponseEntity<Optional<Student>> get(@PathVariable Long id){
+		Optional<Student> student = studentService.get(id);
+		
+		if (Optional.empty().equals(student)) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(student, HttpStatus.OK);
 	}
 	
-	@PutMapping(value = "/{id}")
+	@PatchMapping(value = "/{id}")
     public ResponseEntity<Student> update(@PathVariable Long id, @RequestBody StudentDTO data){
         Student student = studentService.update(id, data);
         if(student == null){
@@ -55,8 +61,12 @@ public class StudentController {
     }
 
    @DeleteMapping(value = "/{id}")
-	public void delete(@PathVariable Long id) {
-		studentService.delete(id);
+	public ResponseEntity<Boolean> delete(@PathVariable Long id) {
+		Boolean student = studentService.delete(id);
+		if (student == null) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 	}
    
 }

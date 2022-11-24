@@ -1,6 +1,7 @@
 package com.nology.java.draft;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,31 +11,34 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class StudentService {
 	@Autowired
-	private StudentRepository repository;
+	private StudentRepository sRepo;
 	
 	public List<Student> all() {
-		return repository.findAll();
+		return sRepo.findAll();
 	}
 	
 	public void create(StudentDTO student) {
 		Student s = new Student(student.getFullname(), student.getCohort());
-		repository.save(s);
+		sRepo.save(s);
 	}
 	
-	public Student get(Long id) {
-		return repository.findById(id).get();
+	public Optional<Student> get(Long id) {
+		return sRepo.findById(id);
 	}
 	
-	public void delete(Long id) {
-		repository.deleteById(id);
+	public Boolean delete(Long id) {
+		Optional<Student> fetchedStudent = get(id);
+		if (fetchedStudent.isEmpty()) return null;
+		sRepo.deleteById(id);
+		return true;
 	}
 	
    public Student update(Long id, StudentDTO studentData) {
-        Student fetchedStudent = this.get(id);
+        Optional<Student> fetchedStudent = this.get(id);
         
-        if (fetchedStudent == null) return null;
+        if (fetchedStudent.isEmpty()) return null;
         
-        Student existentStudent = fetchedStudent;
+        Student existentStudent = sRepo.findById(id).get();
         if(studentData.getFullname() != null && !studentData.getFullname().equals("")) {
             existentStudent.setFullname(studentData.getFullname());
         }
@@ -42,7 +46,7 @@ public class StudentService {
             existentStudent.setCohort(studentData.getCohort());
         }
         
-        return this.repository.save(existentStudent);
+        return this.sRepo.save(existentStudent);
     }
 	
 }
